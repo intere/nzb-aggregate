@@ -3,12 +3,49 @@ body {
 }
 
 #search {
-	height: 35px;
+	height: 32px;
 }
 
 .gridStyle {
 	margin-top: 10px;
     border: 1px solid rgb(212,212,212);
     width: 100%; 
-    height: 300px;
+    min-height: 300px;
+    overflow: auto; 
+}
+
+#music-search-div {
+	float: left;
+	margin-left: -300px;
+}
+
+#music-search-type-div {
+	float:left;
+	margin-left: -80px;
+}
+
+#result-type-div {
+	float: left;
+	margin-left: 15px;
+}
+
+#result-limit-div {
+	float: left;
+	margin-left: 15px;
+}
+
+#search-by-type-button, #view-album-button {
+	margin-left: 15px;
+	margin-top: 25px;
+}
+
+.album-cover {
+	height: 60px;
+	min-width: 60px;
+}
+
+.album-cover-large {
+	float:left;
+	height: 100px;
+	min-width: 100px;
 }

@@ -1,27 +1,44 @@
 
-<div ng-controller="MusicSearch">
+<div ng-controller="MusicSearchCtrl">
 	<!-- class="navbar-inner" -->
 	<div class="container">
-		<div class="container">
+
+		<!-- Search Text -->
+		<div id="music-search-div">
 			<label for="search">Search for Music</label>
 			<input id="search" type="text" ng-model="searchText" placeholder="search text">
 		</div>
 
-		<div class="container">
-			<label for="type">Result Type</label>
-			<select id="type" ng-model="resultType" ng-options="type as type.name for type in resultTypes">
-			</select>
+		<!-- Field to search by (Artist, Genre, etc). -->
+		<div id="music-search-type-div">
+			<label for="searchType">Search By</label>
+			<select id="searchType" ng-model="searchType" ng-options="type as type.name for type in searchTypes"></select>
 		</div>
-		<div class="container">
+
+		<!-- The Type of results you want to see.  -->
+		<div id="result-type-div">
+			<label for="type">Result Type</label>
+			<select id="type" ng-model="resultType" ng-options="type as type.name for type in resultTypes" ng-change="resultTypeChanged()"></select>
+		</div>
+
+		<!-- Selection for Result Limit -->
+		<div id="result-limit-div">
 			<label for="limit">Result Limit</label>
 			<select id="limit" ng-model="resultLimit" ng-options="limit as limit for limit in resultLimits">
 			</select>
 		</div>
 
-		<button class="btn btn-primary" ng-click="doSearch()">Search</button>
+		<!-- Button invokes the $scope.doSearch() method (see music-search.js) -->
+		<button id="search-by-type-button" class="btn btn-primary" ng-click="doSearch()">Search by {{searchType.name}}</button>
+
+		<button id="view-album-button" class="btn" ng-click="viewSelected()" ng-disabled="!canView()">View {{selectedType()}}</button>
 	</div>
 
 	<!-- Results appear in this grid: -->
 	<div class="gridStyle" ng-grid="gridOptions"></div>
+
+
+	<br />
+	<div class="selectedItems"><pre>{{gridOptions.selectedItems}}</pre></div>
 
 </div>

@@ -6,6 +6,7 @@ angular.module( 'nzb.utils', [ 'ui.bootstrap', 'ngGrid' ])
         $routeProvider
             .when('/', {templateUrl: 'views/home/home.html'})
             .when('/search', {templateUrl: 'views/search/music-search.html'})
+            .when('/album/:id', {templateUrl: 'views/album/show-album.html'})
             // .when('/dashboard', {templateUrl: 'dashboard/dashboard.html'})
             // .when('/articles/:articleId/edit/', {templateUrl: 'articles/create.html'})
             // .when('/articles/new/:flag', {templateUrl: 'articles/create.html'})
