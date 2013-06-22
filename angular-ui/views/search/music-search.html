@@ -1,0 +1,27 @@
+
+<div ng-controller="MusicSearch">
+	<!-- class="navbar-inner" -->
+	<div class="container">
+		<div class="container">
+			<label for="search">Search for Music</label>
+			<input id="search" type="text" ng-model="searchText" placeholder="search text">
+		</div>
+
+		<div class="container">
+			<label for="type">Result Type</label>
+			<select id="type" ng-model="resultType" ng-options="type as type.name for type in resultTypes">
+			</select>
+		</div>
+		<div class="container">
+			<label for="limit">Result Limit</label>
+			<select id="limit" ng-model="resultLimit" ng-options="limit as limit for limit in resultLimits">
+			</select>
+		</div>
+
+		<button class="btn btn-primary" ng-click="doSearch()">Search</button>
+	</div>
+
+	<!-- Results appear in this grid: -->
+	<div class="gridStyle" ng-grid="gridOptions"></div>
+
+</div>
