@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:batch="http://www.springframework.org/schema/batch" 
+	xmlns:int="http://www.springframework.org/schema/integration"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration 
+		http://www.springframework.org/schema/integration/spring-integration-2.0.xsd
+		http://www.springframework.org/schema/batch 
+		http://www.springframework.org/schema/batch/spring-batch.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.intere.nzb.batch" />
+	<context:component-scan base-package="com.intere.spring.nzb" />
+
+<!-- 	<int:service-activator>
+		<bean class="com.intere.nzb.batch.BatchJobLauncher">
+			<constructor-arg ref="jobLauncher" />
+			<constructor-arg ref="fringeJob" />
+		</bean>
+	</int:service-activator> -->
+
+	<batch:job id="fringeSeasonFour">
+		<batch:step id="runJob">
+			<batch:tasklet ref="fringeJob" method="runJob"
+				start-limit="1"></batch:tasklet>
+		</batch:step>
+	</batch:job>
+
+
+	<!-- Beans -->
+<!-- 	<batch:job-repository id="jobRepository" /> -->
+
+	<bean
+		class="org.springframework.batch.core.configuration.support.JobRegistryBeanPostProcessor">
+		<property name="jobRegistry" ref="jobRegistry" />
+	</bean>
+
+	<bean id="jobLauncher"
+		class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+<!-- 		<property name="jobRepository" ref="jobRepository" />
+ -->	</bean>
+
+	<bean id="jobRegistry"
+		class="org.springframework.batch.core.configuration.support.MapJobRegistry" />
+
+	<bean id="fringeJob" class="com.intere.nzb.batch.jobs.FringeSeasonFourJob" />
+
+</beans>

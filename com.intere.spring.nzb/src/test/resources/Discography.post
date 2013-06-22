@@ -1,0 +1,15 @@
+POST /fcgi/nzb.fcgi?q=Discography&max=1000&adv_age=900&server= HTTP/1.1
+Host: binsearch.info
+Origin: http://binsearch.info
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_6; en-us) AppleWebKit/533.19.4 (KHTML, like Gecko) Version/5.0.3 Safari/533.19.4
+Content-Type: application/x-www-form-urlencoded
+Accept: application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+Referer: http://binsearch.info/?q=Discography&max=1000&adv_age=900&server=
+Cache-Control: max-age=0
+Accept-Language: en-us
+Accept-Encoding: gzip, deflate
+Cookie: __utmb=152106154.1.10.1306096693; __utma=152106154.1887791317.1305941587.1306092943.1306096693.8; __utmc=152106154; __utmz=152106154.1305941587.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+Content-Length: 22
+Connection: keep-alive
+
+57900379=on&action=nzb

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<import resource="classpath:/application-config.xml" />
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.intere.nzb.batch" />
+	<context:component-scan base-package="com.intere.spring.nzb" />
+	
+	<bean class="com.intere.nzb.batch.jobs.interactive.InteractiveClient" id="interactiveClient">
+		
+	</bean>	
+
+<!-- 	<bean class="com.intere.nzb.batch.jobs.ConfigurableSearchJob" id="testSearches">
+		<property name="testOnly" value="true" />
+		<property name="searches">
+			<list> -->
+				<!-- <ref bean="dexterS06"/>
+				<ref bean="discographySearch" /> 
+				<ref bean="zappaTest" />-->
+<!-- 			</list>
+		</property>
+	</bean> -->
+	
+<!-- 	<bean class="com.intere.nzb.batch.jobs.ConfigurableSearchJob" id="realSearches">
+		<property name="searches">
+			<list>
+				<ref bean="zappaTest" />
+			</list>
+		</property>
+	</bean> -->
+
+	<bean class="com.intere.nzb.batch.jobs.SearchMatchCriteria" id="zappaTest">
+		<property name="searchText" value="Zappa" />
+		<property name="searchSize" value="5000" />
+		<property name="subjectMatches">
+			<list>
+				<bean class="com.intere.nzb.batch.jobs.SubjectMatchCriteria">
+					<property name="messageIncludes">
+						<list>
+							<value>bolero</value>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean class="com.intere.nzb.batch.jobs.SearchMatchCriteria" id="discographySearch">
+		<property name="searchText" value="discography nzb" />
+		<property name="searchSize" value="5000" />
+		<property name="subjectMatches">
+			<list>
+				<bean class="com.intere.nzb.batch.jobs.SubjectMatchCriteria">
+					<property name="messageExcludes">
+						<list>
+							<value>flac</value>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean class="com.intere.nzb.batch.jobs.SearchMatchCriteria" id="dexterS06">
+		<property name="searchText" value="dexter S06 nzb" />
+		<property name="multipleFiles" value="true" />
+		<property name="author" value="DiCaprio" />
+	</bean>
+
+	<bean class="com.intere.nzb.batch.jobs.SearchMatchCriteria" id="dexterS05">
+		<property name="searchText" value="dexter S05 DVDRip" />
+		<property name="multipleFiles" value="true" />
+	</bean>
+
+	<bean class="com.intere.nzb.batch.jobs.SearchMatchCriteria" id="primus">
+		<property name="searchText" value="primus pork soda" />
+		<property name="multipleFiles" value="true" />
+		<property name="subjectMatches">
+			<list>
+				<bean class="com.intere.nzb.batch.jobs.SubjectMatchCriteria">
+					<property name="messageIncludes">
+						<list>
+							<value>primus</value>
+							<value>pork soda</value>
+							<value>mp3</value>
+						</list>
+					</property>
+					<property name="messageExcludes">
+						<list>
+							<value>flac</value>
+						</list>
+					</property>
+				</bean>
+				<bean class="com.intere.nzb.batch.jobs.SubjectMatchCriteria">
+					<property name="messageIncludes">
+						<list>
+							<value>primus</value>
+							<value>pork soda</value>
+							<value>par2</value>
+						</list>
+					</property>
+				</bean>
+				<bean class="com.intere.nzb.batch.jobs.SubjectMatchCriteria">
+					<property name="messageIncludes">
+						<list>
+							<value>primus</value>
+							<value>pork soda</value>
+							<value>rar</value>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+</beans>
