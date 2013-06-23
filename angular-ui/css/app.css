@@ -1,5 +1,18 @@
 body {
 	margin: 10px;
+	padding-top: 60px;
+	padding-bottom: 40px;
+}
+
+div.ngCell.date span {
+	display: inline-block;
+	margin-top: 6px;
+}
+
+div.ngCell.link a {
+	display: inline-block;
+	margin-top: 6px;
+	margin-left: 5px;
 }
 
 #search {

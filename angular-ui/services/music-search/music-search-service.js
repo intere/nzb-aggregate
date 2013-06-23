@@ -10,6 +10,7 @@ angular.module( 'nzb.utils' ).service('MusicSearchService',
 			searchType: undefined,
 			resultType: undefined,
 			limit: undefined,
+			results: [],
 
 			get: function() {
 				var url = 'https://itunes.apple.com/search' 

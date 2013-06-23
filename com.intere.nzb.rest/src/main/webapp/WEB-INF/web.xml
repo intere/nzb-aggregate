@@ -16,11 +16,6 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	
-	<context-param>
-	  <param-name>log4jConfigLocation</param-name>
-	  <param-value>classpath:/WEB-INF/log4j.xml</param-value>
-	</context-param>
 
 	<servlet-mapping>
 		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
