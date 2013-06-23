@@ -186,7 +186,7 @@ public class BinsearchUtils {
 		String query = StreamUtils.buildSearchQuery(baseSearch, MAX_AGE, maxRecords, offset);
 		HttpGet get = new HttpGet(query);
 
-		LOG.info("Executing search: " + query);
+		LOG.debug("Executing search: " + query);
 		HttpResponse response = client.execute(get);
 		HttpEntity entity = response.getEntity();
 

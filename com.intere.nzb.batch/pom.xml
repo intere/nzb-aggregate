@@ -4,7 +4,6 @@
 
 	<groupId>com.intere.nzb</groupId>
 	<artifactId>nzb-batch</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 
 	<name>NZB Batch Search Jobs</name>
 	<description>This project contains batch jobs that run periodically and automate some of the NZB Search functionality.</description>
@@ -22,9 +21,9 @@
 			<version>2.1.8.RELEASE</version>
 		</dependency>
 		<dependency>
-			<groupId>com.intere.spring</groupId>
-			<artifactId>nzb</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<groupId>com.intere.nzb</groupId>
+			<artifactId>core</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 

@@ -8,13 +8,12 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<groupId>com.intere.spring</groupId>
-	<artifactId>nzb</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<groupId>com.intere.nzb</groupId>
+	<artifactId>core</artifactId>
+	
 	<packaging>jar</packaging>
-	<name>NZB reader</name>
-	<description>NZB application that uses spring.</description>
-
+	<name>NZB Core</name>
+	<description>Core NZB Search functionality.</description>
 
 	<dependencies>
 		<dependency>
