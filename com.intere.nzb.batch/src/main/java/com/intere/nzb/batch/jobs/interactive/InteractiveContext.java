@@ -118,7 +118,7 @@ public class InteractiveContext {
 			}
 		}
 		
-		while (offset + 1 < filteredResults.size()) {
+		while (offset < filteredResults.size()) {
 			printCurrentPage(translator);
 
 			if (offset + 1 < filteredResults.size()) {
@@ -181,9 +181,9 @@ public class InteractiveContext {
 			offset = 0;
 		}
 		
-		int max = Math.min(offset + pageSize, filteredResults.size() - 1);
+		int max = Math.min(offset + pageSize, filteredResults.size());
 
-		for (int i = offset; i <= max; i++) {
+		for (int i = offset; i < max; i++) {
 			NzbRowModel row = filteredResults.get(i);
 			if (translator.isShortPrintMode()) {
 				System.out.println(row.getShortString());
@@ -194,7 +194,7 @@ public class InteractiveContext {
 
 		System.out.println(getCurrentPageInfo());
 
-		offset = max+1;
+		offset = max;
 	}
 
 	/**

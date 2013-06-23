@@ -85,7 +85,11 @@ public class InteractiveClientHelper {
 			String maxInput = reader.readLine();
 
 			if (!maxInput.trim().isEmpty()) {
-				maxResults = Integer.parseInt(maxInput);
+				try {
+					maxResults = Integer.parseInt(maxInput);
+				}catch(NumberFormatException ex) {
+					// Ignore - just leave it as unlimited.
+				}
 			}
 		}
 		
@@ -96,7 +100,11 @@ public class InteractiveClientHelper {
 			String minInput = reader.readLine();
 
 			if (!minInput.trim().isEmpty()) {
-				minResults = Integer.parseInt(minInput);
+				try {
+					minResults = Integer.parseInt(minInput);
+				} catch(NumberFormatException ex) {
+					// Ignore - just leave it as 0
+				}
 			}
 			
 		}
