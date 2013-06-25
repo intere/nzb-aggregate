@@ -5,9 +5,10 @@ angular.module( 'nzb.utils', [ 'ui.bootstrap', 'ngGrid' ])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/', {templateUrl: 'views/home/home.html'})
-            .when('/search', {templateUrl: 'views/search/music-search.html'})
+            .when('/search/itunes', {templateUrl: 'views/search/music-search.html'})
             .when('/album/:id', {templateUrl: 'views/album/show-album.html'})
             .when('/about', {templateUrl: 'views/about/about.html'})
+            .when('/search/nzb', {templateUrl:'views/search/nzb-search.html'})
             // .when('/dashboard', {templateUrl: 'dashboard/dashboard.html'})
             // .when('/articles/:articleId/edit/', {templateUrl: 'articles/create.html'})
             // .when('/articles/new/:flag', {templateUrl: 'articles/create.html'})
@@ -24,12 +25,13 @@ angular.module( 'nzb.utils', [ 'ui.bootstrap', 'ngGrid' ])
     })
     .controller('MainCtrl', function($scope){
         $scope.navigation = [
-            {display: "iTunes Search", href: "#/search"},
-            {display: "NZB Search", href: "#/nzb-search"}
+            {display: "iTunes Search", href: "#/search/itunes"},
+            {display: "NZB Search", href: "#/search/nzb"}
         ];
     })
-    .run(function($rootScope, $log, $location) {
+    .run(function($rootScope, $log, $location, SampleService) {
         $rootScope.applicationName = "Music Search Utility";
         $log.info('application run: (path="' + $location.path() + '")' );
 
+        SampleService.post({name:"Eric", age: 33, mug: "Piglet", littleBrother: "Klondyke", bigBrother: "Poodull"});
     });
