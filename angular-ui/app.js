@@ -14,6 +14,9 @@ angular.module( 'nzb.utils', [ 'ui.bootstrap', 'ngGrid' ])
             // .when('/events/create/:flag/:editFlag', {templateUrl: 'events/create.html'})
             .otherwise({redirectTo: '/'});
     }])    
+    
+    .value( 'NzbUrlBase', 'http://localhost:9090/rest' )
+
     .config(['$httpProvider', function($httpProvider) {
             delete $httpProvider.defaults.headers.common["X-Requested-With"];
     }])
