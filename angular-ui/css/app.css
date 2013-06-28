@@ -29,12 +29,13 @@ div.ngCell.link a {
 
 #music-search-div {
 	float: left;
-	margin-left: -300px;
+	/*margin-left: -300px;*/
 }
 
 #music-search-type-div {
 	float:left;
-	margin-left: -80px;
+	/*margin-left: -80px;*/
+	margin-left: 15px;
 }
 
 #result-type-div {
@@ -49,7 +50,7 @@ div.ngCell.link a {
 
 #search-by-type-button, #view-album-button {
 	margin-left: 15px;
-	margin-top: 25px;
+	/*margin-top: 25px;*/
 }
 
 .album-cover {

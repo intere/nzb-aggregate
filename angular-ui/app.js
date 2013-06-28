@@ -8,6 +8,7 @@ angular.module( 'nzb.utils', [ 'ui.bootstrap', 'ngGrid' ])
             .when('/search', {templateUrl: 'views/search/music-search.html'})
             .when('/album/:id', {templateUrl: 'views/album/show-album.html'})
             .when('/about', {templateUrl: 'views/about/about.html'})
+            .when('/nzb/search', {templateUrl: 'views/search/nzb-search.html'})
             // .when('/dashboard', {templateUrl: 'dashboard/dashboard.html'})
             // .when('/articles/:articleId/edit/', {templateUrl: 'articles/create.html'})
             // .when('/articles/new/:flag', {templateUrl: 'articles/create.html'})
@@ -28,7 +29,7 @@ angular.module( 'nzb.utils', [ 'ui.bootstrap', 'ngGrid' ])
     .controller('MainCtrl', function($scope){
         $scope.navigation = [
             {display: "iTunes Search", href: "#/search"},
-            {display: "NZB Search", href: "#/nzb-search"}
+            {display: "NZB Search", href: "#/nzb/search"}
         ];
     })
     .run(function($rootScope, $log, $location) {

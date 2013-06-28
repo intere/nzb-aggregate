@@ -7,7 +7,7 @@
 // NzbSearchService.search(objSearch, fnSuccess, fnError);
 //
 angular.module( 'nzb.utils' ).service('NzbSearchService', 
-	function(NzbUrlBase, $http, $log) {
+	function(NzbUrlBase, $http, $q, $log) {
 
 
 		var service = {
@@ -18,8 +18,39 @@ angular.module( 'nzb.utils' ).service('NzbSearchService',
 					return;
 				}
 
-				var url = NzbUrlBase + "/search?for="
+				var url = NzbUrlBase + "/search" + this.buildRequest(searchCriteria);
 
+				return this.get(url);
+			},
+
+			get: function(url) {
+				var deferred = $q.defer();
+
+				$http.get(url)
+					.success(function(result){
+						deferred.resolve(result);
+					})
+					.error(function(error) {
+						deferred.reject(error);
+					});
+
+				return deferred.promise;
+			},
+
+			buildRequest: function(searchCriteria) {
+				var request = '';
+
+				for(var i in searchCriteria) {
+					if(request.length==0) {
+						request = '?';
+					} else {
+						request += '&';
+					}
+
+					request += i + '=' + searchCriteria[i];
+				}
+
+				return request;
 			}
 		};
 
