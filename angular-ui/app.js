@@ -28,12 +28,12 @@ angular.module( 'nzb.utils', [ 'ui.bootstrap', 'ngGrid' ])
     })
     .controller('MainCtrl', function($scope){
         $scope.navigation = [
-            {display: "iTunes Search", href: "#/search"},
-            {display: "NZB Search", href: "#/nzb/search"}
+            {display: "Today's Choices", href: "#/search"},
+            {display: "Manage Choices", href: "#/nzb/search"},            
         ];
     })
     .run(function($rootScope, $log, $location) {
-        $rootScope.applicationName = "Music Search Utility";
+        $rootScope.applicationName = "Choice Application Management";
         $log.info('application run: (path="' + $location.path() + '")' );
 
     });
