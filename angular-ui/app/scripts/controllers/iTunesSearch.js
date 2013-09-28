@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularUiApp')
+angular.module('nzbUiApp')
   .controller('iTunesSearchCtrl', function($scope, $log, $location, iTunesSearchService) {
 		// Options for the Result Type Select (using objects for demonstration purposes)
 		$scope.searchTypes = [

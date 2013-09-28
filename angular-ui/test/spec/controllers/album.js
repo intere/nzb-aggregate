@@ -3,7 +3,7 @@
 describe('Controller: AlbumCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('angularUiApp'));
+  beforeEach(module('nzbUiApp'));
 
   var AlbumCtrl,
     scope;
@@ -16,7 +16,4 @@ describe('Controller: AlbumCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
-  });
 });

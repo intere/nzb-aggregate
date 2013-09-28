@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularUiApp')
+angular.module('nzbUiApp')
   .controller('AboutCtrl', function($scope){
 	$scope.views = [
 		{

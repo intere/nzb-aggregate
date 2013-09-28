@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularUiApp', [ 'ngGrid' ])
+angular.module('nzbUiApp', [ 'ngGrid' ])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -19,7 +19,27 @@ angular.module('angularUiApp', [ 'ngGrid' ])
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
       })
+      .when('/NzbSearch', {
+        templateUrl: 'views/NzbSearch.html',
+        controller: 'NzbSearchCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
+  })
+
+  .value( 'ServerBase', 'http://localhost:9090/rest' )
+
+  .config(['$httpProvider', function($httpProvider) {
+    delete $httpProvider.defaults.headers.common["X-Requested-With"];
+  }])
+
+  .controller('NavCtrl', function ($scope, $location) {
+    $scope.isView = function(name) {
+      return new RegExp('/'+name+'$').test($location.path());
+    }
+  })  
+  .run(function($rootScope, $log, $location) {
+    $rootScope.applicationName = "Music Search Utility";
+    $log.info('application run: (path="' + $location.path() + '")' );
   });

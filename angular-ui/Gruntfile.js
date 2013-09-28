@@ -51,6 +51,10 @@ module.exports = function (grunt) {
           '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
+      },
+      karma_unit: {
+        files: ['app/scripts/*.js', 'app/scripts/**/*.js', 'test/spec/**/*.js'],
+        tasks: ['karma:unit:run'] //NOTE the :run flag
       }
     },
     autoprefixer: {
@@ -286,8 +290,15 @@ module.exports = function (grunt) {
     },
     karma: {
       unit: {
+        runnerPort: 8484,
         configFile: 'karma.conf.js',
         singleRun: true
+      },
+      // Runs in the background
+      continuous_unit: {
+        runnerPort: 8484,
+        configFile: 'karma.conf.js',
+        background: true
       }
     },
     cdnify: {
@@ -330,6 +341,14 @@ module.exports = function (grunt) {
       'watch'
     ]);
   });
+
+  grunt.registerTask('ci', [
+    // 'clean:server',
+    // 'concurrent:test',
+    // 'connect:test',
+    'karma:continuous_unit',  // continuous unit testing    
+    'watch:karma_unit'
+  ]);
 
   grunt.registerTask('test', [
     'clean:server',

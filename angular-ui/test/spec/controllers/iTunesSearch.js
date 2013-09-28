@@ -1,9 +1,9 @@
 'use strict';
 
-describe('Controller: ItunessearchCtrl', function () {
+describe('Controller: iTunesSearchCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('angularUiApp'));
+  beforeEach(module('nzbUiApp'));
 
   var ItunessearchCtrl,
     scope;
@@ -11,12 +11,9 @@ describe('Controller: ItunessearchCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    ItunessearchCtrl = $controller('ItunessearchCtrl', {
+    ItunessearchCtrl = $controller('iTunesSearchCtrl', {
       $scope: scope
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
-  });
 });

@@ -1,0 +1,11 @@
+
+<div>
+	<form class="form-horizontal">
+		<div class="control-group">
+			<input ng-model="searchText" type="text" class="input-medium search-query" placeholder="search for">
+			<button class="btn btn-primary" ng-click="nzbSearch()">Search</button>
+			<select ng-model="maxResults" ng-options="max for max in getMaxResults()"></select>
+			<input ng-model="startIndex" type="text" class="input-small" placeholder="start index">
+		</div>
+	</form>
+</div>

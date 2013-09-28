@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="bower_components/ng-grid/ng-grid.css">
         <!-- endbuild -->
 </head>
-  <body ng-app="angularUiApp">
+  <body ng-app="nzbUiApp">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -84,6 +84,7 @@
         <!-- build:js scripts/plugins.js -->
         <script src="bower_components/jquery/jquery.js"></script>
         <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/ng-grid/build/ng-grid.js"></script>
         <script src="bower_components/bootstrap-sass/js/bootstrap-affix.js"></script>
         <script src="bower_components/bootstrap-sass/js/bootstrap-alert.js"></script>
         <script src="bower_components/bootstrap-sass/js/bootstrap-dropdown.js"></script>
@@ -115,6 +116,9 @@
         <script src="scripts/services/iTunesSearchService.js"></script>
         <script src="scripts/controllers/album.js"></script>
         <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/services/NzbService.js"></script>
+        <script src="scripts/services/NzbSearchResultDecorator.js"></script>
+        <script src="scripts/controllers/NzbSearch.js"></script>
         <!-- endbuild -->
 </body>
 </html>

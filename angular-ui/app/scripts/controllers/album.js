@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularUiApp')
+angular.module('nzbUiApp')
   .controller('AlbumCtrl', function($scope, $routeParams, $log, iTunesSearchService) {
 
 		$log.info("Params: " + JSON.stringify($routeParams));

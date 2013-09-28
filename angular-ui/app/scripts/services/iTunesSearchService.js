@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularUiApp')
+angular.module('nzbUiApp')
   .service('iTunesSearchService', function($http, $log) {
 
 	// Create the Service

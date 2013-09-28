@@ -3,7 +3,7 @@
 describe('Service: iTunesSearchService', function () {
 
   // load the service's module
-  beforeEach(module('angularUiApp'));
+  beforeEach(module('nzbUiApp'));
 
   // instantiate service
   var iTunesSearchService;
