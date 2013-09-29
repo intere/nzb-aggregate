@@ -33,6 +33,8 @@ describe('Service: NzbSearchResultDecorator', function () {
     expect(DECORATED.addPost).not.toBeUndefined();
     expect(DECORATED.getPostDto).not.toBeUndefined();
     expect(DECORATED.hasPosts).not.toBeUndefined();
+    expect(DECORATED.getUniqueGroups).not.toBeUndefined();
+    expect(DECORATED.getUniquePosters).not.toBeUndefined();
   });
 
   it('should calculate result size correctly', function() {
@@ -155,6 +157,38 @@ describe('Service: NzbSearchResultDecorator', function () {
       expect(DECORATED.addPost(DECORATED.get(indexes[i]))).toBe(true);
       expect(DECORATED.hasPosts()).toBe(true);
     }
+  });
+
+  it('should provide the unique set of groups', function() {
+    var flat = DECORATED.flattenResults();
+    var groups = DECORATED.getUniqueGroups();
+
+    expect(groups).not.toBeUndefined();
+    expect(groups.length).toBeGreaterThan(0);
+
+    console.log('we have ' + groups.length + " groups");
+
+    var unique = {};
+    for(var i in groups) {
+      expect(unique[groups[i]]).toBeUndefined();
+      unique[groups[i]] = groups[i];
+    }
+
+  });
+
+  it('should provide the unique set of posters', function() {
+    var flat = DECORATED.flattenResults();
+    var posters = DECORATED.getUniquePosters();
+
+    expect(posters).not.toBeUndefined();
+    expect(posters.length).toBeGreaterThan(0);
+
+    var unique = {};
+    for(var i in posters) {
+      expect(unique[posters[i]]).toBeUndefined();
+      unique[posters[i]] = posters[i];
+    }
+    
   });
 
 });

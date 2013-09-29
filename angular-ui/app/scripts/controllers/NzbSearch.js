@@ -35,6 +35,10 @@ angular.module('nzbUiApp')
 		rowHeight: 60
 	};
 
+	$scope.hasResults = function() {
+		return $scope.results.length>0;
+	}
+
 	$scope.canAdd = function() {
 		return $scope.selectedItems.length>0;
 	}

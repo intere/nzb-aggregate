@@ -122,6 +122,41 @@ angular.module('nzbUiApp')
 
         return dtos;
       }
+
+      /** Provides you with the unique set of groupss. */
+      this.getUniqueGroups = function() {
+        var flat = this.flattenResults();
+        var groups = [];
+
+        // Object to use as a hash to ensure we don't dupe any values:
+        var unique = {};
+
+        for(var i in flat) {
+          if(!unique[flat[i].group]) {
+            groups[groups.length] = flat[i].group;
+            unique[flat[i].group] = flat[i].group;
+          }
+        }
+
+        return groups;
+      }
+
+      /** Provides you with the unique set of posters. */
+      this.getUniquePosters = function() {
+        var flat = this.flattenResults();
+        var posters = [];
+        var unique = {};
+
+        for(var i in flat) {
+          if(!unique[flat[i].poster]) {
+            posters[posters.length] = flat[i].poster;
+            unique[flat[i].poster] = flat[i].poster;
+          }
+        }
+
+        return posters;
+      }
+
   	};
 
     //
