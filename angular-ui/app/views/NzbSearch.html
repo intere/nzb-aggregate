@@ -1,8 +1,8 @@
 
 <div>
-	<form class="form-inline">
+	<form class="form-horizontal">
 		<div class="control-group">
-			<label><strong>Search Options:</strong></label>
+			<label class="control-label"><strong>Search Options: </strong></label>
 			<div class="nzb-search-busy" spinner="loading"></div>
 			<input ng-model="searchText" type="text" class="input-medium search-query" placeholder="search for" ng-disabled="loading">
 			<button class="btn btn-primary" ng-click="nzbSearch()" ng-disabled="loading">Search</button>
@@ -15,9 +15,11 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label><strong>Filter Options:</strong></label>
-			<label class="checkbox"><input type="checkbox" ng-model="showCollections" value="true" ng-disabled="!hasResults()"> Collections</label>
+			<label class="control-label"><strong>Filter Options: </strong></label>
+			<label class="control-label"><input type="checkbox" ng-model="showCollections" value="true" ng-disabled="!hasResults()"> Collections</label>
 			<input ng-model="filterText" type="text" class="input-medium search-query" placeholder="filter results" ng-disabled="!hasResults()">
+			<div typeahead="groups" ng-model="selectedGroups" on-change="handleSelectionChange" placeholder="'group filter'"></div>
+			<div typeahead="posters" ng-model="selectedPosters" on-change="handleSelectionChange" placeholder="'poster filter'"></div>
 		</div>
 	</form>
 

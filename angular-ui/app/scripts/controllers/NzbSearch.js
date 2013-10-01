@@ -5,10 +5,11 @@ angular.module('nzbUiApp')
 
   	$scope.maxResults = 100;
   	$scope.selectedItems = [];
+    $scope.selectedGroups = [];
+    $scope.selectedPosters = [];
   	$scope.results = [];
   	$scope.decoratedResults = undefined;
-  	$scope.loading = false;
-  	
+  	$scope.loading = false;  	
   	$scope.filterOptions = {
 		filterText: undefined,
 		useExternalFilter: true
@@ -19,12 +20,12 @@ angular.module('nzbUiApp')
 	    data: 'filteredResults',
 	    columnDefs: [
 	    	{field:'id',displayName:'ID',width:35},
-	    	{field:'collection',displayName:'',cellClass:'collection',cellTemplate:'<i class="icon-th" ng-show="COL_FIELD"></i>', width: 25 },
-		    {field:'subject', displayName:'Subject', width: "800"},
-		    {field:'group', displayName:'Group'},
-		    {field:'poster', displayName:'Poster'},
-		    {field:'contains', displayName:'Contents'},
-		    {field:'size', displayName: 'Size', cellTemplate: '<div ng-cell-text>{{COL_FIELD.size}} {{COL_FIELD.unit}}</div>', width: '100'}
+	    	{field:'collection',displayName:'',cellClass:'collection',cellTemplate:'<i class="icon-th" ng-show="COL_FIELD"></i>',width:25},
+		    {field:'subject', displayName:'Subject', width:'40%'},
+		    {field:'group', displayName:'Group',width:'*'},
+		    {field:'poster', displayName:'Poster',width:'*'},
+		    {field:'contains', displayName:'Contents',width:'*'},
+		    {field:'size', displayName: 'Size', cellTemplate: '<div ng-cell-text>{{COL_FIELD.size}} {{COL_FIELD.unit}}</div>',width:'*'}
 		],
 		showFooter: true,
 		totalServerItems: 0,
@@ -74,8 +75,6 @@ angular.module('nzbUiApp')
   			function(results){
   				$scope.selectedItems.length = 0;
   				$scope.decoratedResults = results;
-  				$scope.results = results.flattenResults();
-  				console.dir(results);
   				$scope.loading = false;
   			}, function(error) {
   				throw new Error(error);
@@ -85,34 +84,83 @@ angular.module('nzbUiApp')
   	};
 
   	$scope.myFilter = function(row) {
-  		if($scope.showCollections && !row.collection) {
+  		
+      if($scope.showCollections && !row.collection) {
   			return false;
-  		} else if($scope.filterText && $scope.filterText.length>0 
+  		}
+
+      if($scope.filterText && $scope.filterText.length>0 
   			&& row.subject.toLowerCase().indexOf($scope.filterText.toLowerCase())<0) {
   			return false;
   		}
 
+      if($scope.selectedGroups.length) {
+        var found = false;
+        for(var i in $scope.selectedGroups) {
+          if(row.group==$scope.selectedGroups[i]) {
+            found = true;
+            break;
+          }
+        }
+        if(!found) {
+          return false;
+        }        
+      }
+
+      if($scope.selectedPosters.length) {
+        var found = false;
+        for(var i in $scope.selectedPosters) {
+          if(row.poster==$scope.selectedPosters[i]) {
+            found = true;
+            break;
+          }
+        }
+
+        if(!found) {
+          return false;
+        }
+      }
 
   		return true;
   	}
 
-  	$scope.updatefilters = function() {
+    $scope.handleSelectionChange = function() {
+      if($scope.selectedGroups) {
+        $scope.updateFilters();
+      }
+    }
+
+  	$scope.updateFilters = function() {
   		$scope.filteredResults = $filter('filter')($scope.results, $scope.myFilter);
   		if(!$scope.$$phase) {
   			$scope.$digest();
   		}
   	};
 
+    $scope.$watch('decoratedResults', function() {
+      if($scope.decoratedResults) {
+        $scope.results = $scope.decoratedResults.flattenResults();
+        $scope.groups = $scope.decoratedResults.getUniqueGroups();
+        $scope.posters = $scope.decoratedResults.getUniquePosters();
+      }
+    });
+
+    // $scope.$watch('selectedGroups', function() {
+    //   if($scope.selectedGroups) {
+    //     $scope.updateFilters();
+    //   }
+    // });
+
   	$scope.$watch('results', function() {
-  		$scope.updatefilters();
+  		$scope.updateFilters();
   	});
 
   	$scope.$watch('filterText', function() {
-  		$scope.updatefilters();
+  		$scope.updateFilters();
   	});
 
   	$scope.$watch('showCollections', function() {
-  		$scope.updatefilters();
+  		$scope.updateFilters();
   	});
 
   });

@@ -23,6 +23,10 @@ angular.module('nzbUiApp', [ 'ngGrid' ])
         templateUrl: 'views/NzbSearch.html',
         controller: 'NzbSearchCtrl'
       })
+      .when('/test', {
+        templateUrl: 'views/test.html',
+        controller: 'TestCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

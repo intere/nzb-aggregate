@@ -39,6 +39,21 @@ div.ngCell.link a {
     height: 32px;
 }
 
+.nzb-table {
+    min-height:300px;
+    max-height:800px;
+    overflow:auto;
+}
+
+.nzb-search-busy {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -100px;
+    z-index: 100;
+}
+
 .gridStyle {
     margin-top: 10px;
     border: 1px solid rgb(212,212,212);

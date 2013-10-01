@@ -1,0 +1,25 @@
+<div>
+	<form class='form-inline'>	
+
+		<input ng-model="addText" type="text" class="input-medium" placeholder="add me">
+		<button class="btn btn-primary" ng-click="add()">Add Text</button>
+
+
+
+		<div typeahead="data" ng-model="selection" on-change="handleSelectionChange" style="padding-top:20px;" placeholder="my placeholder"></div>
+	</form>
+
+
+	<div style="border:1px solid black;width:200px;display:inline-block">
+		<p style="font-size:14pt;weight:1000;">Suggestions</p>
+		<p ng-repeat="i in data">{{i}}</p>
+	</div>
+
+	
+	<div style="border:1px solid black;width:200px;display:inline-block">
+		<p style="font-size:14pt;weight:1000;">Selections</p>
+		<p ng-repeat="i in selection">{{i}}</p>
+	</div>
+
+
+</div>
