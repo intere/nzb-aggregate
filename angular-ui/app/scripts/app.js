@@ -36,6 +36,7 @@ angular.module('nzbUiApp', [ 'ngGrid' ])
 
   .config(['$httpProvider', function($httpProvider) {
     delete $httpProvider.defaults.headers.common["X-Requested-With"];
+    $httpProvider.defaults.headers.post['Accept'] = "application/json";
   }])
 
   .controller('NavCtrl', function ($scope, $location) {

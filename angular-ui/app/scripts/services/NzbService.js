@@ -26,7 +26,21 @@ angular.module('nzbUiApp')
   			});
 
   			return deferred.promise;
-  		}
+  		},
+
+      submitDownload: function(postObject) {
+        var url = ServerBase + "/search";
+
+        var deferred = $q.defer();
+
+        $http.post(url,JSON.stringify(postObject)).success(function(data){
+          deferred.resolve(data);
+        }).error(function(error){
+          deferred.reject(error);
+        });
+
+        return deferred.promise;
+      }
 
   	};
 

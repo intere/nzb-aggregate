@@ -16,6 +16,10 @@ import javax.xml.bind.annotation.XmlType;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 
+import com.intere.spring.nzb.model.dto.json.NzbPost;
+import com.intere.spring.nzb.model.dto.json.Parameter;
+import com.intere.spring.nzb.model.dto.json.Post;
+
 /**
  * Model that contains information about the NZB Search, but also allows you to
  * populate for a post.
@@ -61,6 +65,20 @@ public class NzbSearchFormModel implements Serializable {
 	 */
 	public NzbSearchFormModel() {
 		parameters.add(new BasicNameValuePair(PARAM_ACTION, PARAM_ACTION_VALUE));
+	}
+
+	/** Constructor that "deserializes" the JSON object to this object type. */
+	public NzbSearchFormModel(NzbPost post) {
+		setSearchText(post.getSearchText());
+		setAction(post.getAction());
+		for(Parameter p : post.getParameters()) {
+			parameters.add(new BasicNameValuePair(p.getName(), p.getValue()));
+		}
+		
+		for(Post p : post.getPosts()) {			
+			posts.add(p.getId());
+			parameters.add(new BasicNameValuePair(p.getCheckboxName(),PARAM_POST_VALUE));			
+		}
 	}
 
 	/**

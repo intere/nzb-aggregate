@@ -20,6 +20,11 @@
 		/> </mvc:message-converters> </mvc:annotation-driven> -->
 	<context:component-scan base-package="com.intere.spring.nzb" />
 	<context:component-scan base-package="com.intere.nzb.rest" />
+	
+	<bean id="QueueDirectory" class="java.lang.String">
+		<constructor-arg value="/download/nzbperl/queue"></constructor-arg>
+	</bean>
+	
 	<!-- <context:component-scan base-package="com.intere." -->
 
 	<!-- 

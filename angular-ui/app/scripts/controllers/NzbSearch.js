@@ -30,6 +30,22 @@ angular.module('nzbUiApp')
       }
     };
 
+    $scope.submitDownload = function() {
+      $scope.loading = true;
+      var dto = $scope.decoratedResults.getPostDto();
+      $log.info("submitting DTO:");
+      console.dir(dto);
+      
+      NzbService.submitDownload(dto).then(
+        function(result){
+          $scope.loading = false;
+          console.dir(result);
+        },function(error){
+          $scope.loading = false;
+          $log.error("Error: " + JSON.stringify(error));
+        });
+    }
+
     $scope.$root.showHide = [
       $scope.searchOptions,
       $scope.filterOptions,
