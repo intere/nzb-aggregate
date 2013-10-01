@@ -83,17 +83,21 @@ angular.module('nzbUiApp')
   		);
   	};
 
+    /** Applies the filtering function per row. */
   	$scope.myFilter = function(row) {
   		
+      // Check collection based filtering
       if($scope.showCollections && !row.collection) {
   			return false;
   		}
 
+      // Check text based filtering
       if($scope.filterText && $scope.filterText.length>0 
   			&& row.subject.toLowerCase().indexOf($scope.filterText.toLowerCase())<0) {
   			return false;
   		}
 
+      // Check group-based filtering
       if($scope.selectedGroups.length) {
         var found = false;
         for(var i in $scope.selectedGroups) {
@@ -107,6 +111,7 @@ angular.module('nzbUiApp')
         }        
       }
 
+      // check poster-based filtering.
       if($scope.selectedPosters.length) {
         var found = false;
         for(var i in $scope.selectedPosters) {
@@ -115,7 +120,6 @@ angular.module('nzbUiApp')
             break;
           }
         }
-
         if(!found) {
           return false;
         }
@@ -124,32 +128,32 @@ angular.module('nzbUiApp')
   		return true;
   	}
 
+    /** Handles a change in selection of a typeahead filter.  */
     $scope.handleSelectionChange = function() {
       if($scope.selectedGroups) {
         $scope.updateFilters();
       }
     }
 
+    /** Performs the filtering on the results using the filter function. */
   	$scope.updateFilters = function() {
   		$scope.filteredResults = $filter('filter')($scope.results, $scope.myFilter);
-  		if(!$scope.$$phase) {
-  			$scope.$digest();
-  		}
+  		$scope.forceUpdate();
   	};
 
+    /** if the decorated results are updated, then update the results, groups and posters.  */
     $scope.$watch('decoratedResults', function() {
       if($scope.decoratedResults) {
         $scope.results = $scope.decoratedResults.flattenResults();
+
+        $scope.selectedGroups = $scope.decoratedResults.getUniqueGroups();
+        $scope.selectedPosters = $scope.decoratedResults.getUniquePosters();
+        $scope.selectedItems.length = 0;
+
         $scope.groups = $scope.decoratedResults.getUniqueGroups();
         $scope.posters = $scope.decoratedResults.getUniquePosters();
       }
     });
-
-    // $scope.$watch('selectedGroups', function() {
-    //   if($scope.selectedGroups) {
-    //     $scope.updateFilters();
-    //   }
-    // });
 
   	$scope.$watch('results', function() {
   		$scope.updateFilters();
@@ -162,5 +166,11 @@ angular.module('nzbUiApp')
   	$scope.$watch('showCollections', function() {
   		$scope.updateFilters();
   	});
+
+    $scope.forceUpdate = function() {
+      if(!$scope.$$phase && !$scope.$root.$$phase) {
+        $scope.$apply();
+      }
+    }
 
   });

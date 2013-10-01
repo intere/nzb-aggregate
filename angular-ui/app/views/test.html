@@ -6,7 +6,9 @@
 
 
 
-		<div typeahead="data" ng-model="selection" on-change="handleSelectionChange" style="padding-top:20px;" placeholder="my placeholder"></div>
+		<div typeahead="data" ng-model="selection" on-change="handleSelectionChange" style="padding-top:20px;" placeholder="'my placeholder'"></div>
+
+		<div dropdown-button="'filter'" menu="data" ng-model="selection"></div>
 	</form>
 
 

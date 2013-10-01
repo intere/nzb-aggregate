@@ -18,12 +18,14 @@
 			<label class="control-label"><strong>Filter Options: </strong></label>
 			<label class="control-label"><input type="checkbox" ng-model="showCollections" value="true" ng-disabled="!hasResults()"> Collections</label>
 			<input ng-model="filterText" type="text" class="input-medium search-query" placeholder="filter results" ng-disabled="!hasResults()">
-			<div typeahead="groups" ng-model="selectedGroups" on-change="handleSelectionChange" placeholder="'group filter'"></div>
-			<div typeahead="posters" ng-model="selectedPosters" on-change="handleSelectionChange" placeholder="'poster filter'"></div>
+			<div dropdown-button="'Group Filter'" menu="groups" ng-model="selectedGroups" on-change="handleSelectionChange"></div>
+			<div dropdown-button="'Poster Filter'" menu="posters" ng-model="selectedPosters" on-change="handleSelectionChange"></div>
+			<!-- <div typeahead="groups" ng-model="selectedGroups" on-change="handleSelectionChange" placeholder="'group filter'"></div>
+			<div typeahead="posters" ng-model="selectedPosters" on-change="handleSelectionChange" placeholder="'poster filter'"></div> -->
 		</div>
 	</form>
 
 	<!-- Results appear in this grid: -->
-	<div class="nzb-table gridStyle" ng-grid="gridOptions"></div>
+	<div class="nzb-table" ng-grid="gridOptions"></div>
 
 </div>

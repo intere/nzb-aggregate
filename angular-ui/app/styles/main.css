@@ -41,6 +41,7 @@ div.ngCell.link a {
 
 .nzb-table {
     min-height:300px;
+    height:500px;
     max-height:800px;
     overflow:auto;
 }

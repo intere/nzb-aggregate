@@ -19,7 +19,7 @@ angular.module('nzbUiApp')
       },
       link: function postLink(scope, element, attrs) {
 
-      	if(!scope.ngModel) {
+            if(!scope.ngModel) {
       		scope.ngModel = [];
       	}
 
