@@ -43,18 +43,19 @@
               <li><a href="#/about">About</a></li>
               <!-- <li><a href="#contact">Contact</a></li> -->
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Navigation <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-<!--                   
-        <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
--->
-                  <li class="nav-header">Nav header</li>
+                  <!-- <li class="nav-header">Navigation</li> -->
                   <li ng-repeat="nav in navigation">
                       <a ng-href="{{nav.href}}">{{nav.display}}</a>
-                  </li>                  
+                  </li>
+                </ul>
+              </li>
+              <li class="dropdown" ng-hide="!hasShowHide()">
+                <a class="dropdown-toggle" data-toggle="dropdown">Show/Hide <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li ng-repeat="menu in showHide">
+                    <a ng-click="menu.callback()"><i class="icon-ok" ng-hide="!menu.isChecked()"></i> {{menu.label}}</a></li>
                 </ul>
               </li>
             </ul>

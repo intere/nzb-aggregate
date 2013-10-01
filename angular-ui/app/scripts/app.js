@@ -46,4 +46,14 @@ angular.module('nzbUiApp', [ 'ngGrid' ])
   .run(function($rootScope, $log, $location) {
     $rootScope.applicationName = "Music Search Utility";
     $log.info('application run: (path="' + $location.path() + '")' );
+
+    $rootScope.hasShowHide = function() {
+      return $rootScope.showHide;      
+    }
+
+    // When the route is about to change, remove the show/hide menu.
+    $rootScope.$on('$locationChangeStart', function() {
+      $rootScope.showHide = undefined;
+    });
+
   });

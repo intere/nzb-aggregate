@@ -3,6 +3,40 @@
 angular.module('nzbUiApp')
   .controller('NzbSearchCtrl', function ($scope, $log, $filter, NzbService) {
 
+    $scope.searchOptions = {label: 'Search Options',checked: true,isChecked: function() {return this.checked;},
+      callback: function() {
+        this.checked = !this.checked;
+        $scope.forceUpdate();
+      }
+    };
+    $scope.filterOptions = {label: 'Filter Options',checked: true,isChecked: function() {return this.checked;},
+      callback: function() {
+        this.checked = !this.checked;
+        $scope.forceUpdate();
+      }
+    };
+    $scope.searchResults = {label:'Search Results',checked: true,isChecked: function() {return this.checked;}, 
+      callback: function() {
+        this.checked = !this.checked;
+        $scope.queueResults.checked = !this.checked;
+        $scope.forceUpdate();
+      }
+    };
+    $scope.queueResults = {label:'Queue Results',checked: false,isChecked: function() {return this.checked;}, 
+      callback: function() {
+        this.checked = !this.checked;
+        $scope.searchResults.checked = !this.checked;
+        $scope.forceUpdate();
+      }
+    };
+
+    $scope.$root.showHide = [
+      $scope.searchOptions,
+      $scope.filterOptions,
+      $scope.searchResults,
+      $scope.queueResults
+    ];
+
   	$scope.maxResults = 100;
   	$scope.selectedItems = [];
     $scope.selectedGroups = [];
@@ -10,13 +44,14 @@ angular.module('nzbUiApp')
   	$scope.results = [];
   	$scope.decoratedResults = undefined;
   	$scope.loading = false;  	
-  	$scope.filterOptions = {
-		filterText: undefined,
-		useExternalFilter: true
-	};
+    $scope.added = {};
+  	$scope.filters = {
+  		filterText: undefined,
+  		useExternalFilter: true
+  	};
 
-  	// Grid Options:
-	$scope.gridOptions = {
+  // Grid Options:
+	$scope.searchGridOptions = {
 	    data: 'filteredResults',
 	    columnDefs: [
 	    	{field:'id',displayName:'ID',width:35},
@@ -32,9 +67,14 @@ angular.module('nzbUiApp')
 		selectedItems: $scope.selectedItems,
 		multiSelect: true,
 		enableColumnResize: true,
-		filterOptions: $scope.filterOptions,
+		filterOptions: $scope.filters,
 		rowHeight: 60
 	};
+
+  $scope.queueGridOptions = $.extend({}, $scope.searchGridOptions);
+  $scope.queueGridOptions.data = 'postItems';
+  $scope.queueGridOptions.filterOptions = undefined;
+
 
 	$scope.hasResults = function() {
 		return $scope.results.length>0;
@@ -61,8 +101,13 @@ angular.module('nzbUiApp')
 				}
 			}
 		}
-
 		$scope.selectedItems.length = 0;
+    $scope.postItems = $scope.decoratedResults.getPosts();
+    $scope.added = {};
+    for(var i in $scope.postItems) {
+      $scope.added[$scope.postItems[i].id] = $scope.postItems[i];
+    }
+    $scope.updateFilters();
 	}
 
   	$scope.getMaxResults = function() {
@@ -76,6 +121,7 @@ angular.module('nzbUiApp')
   				$scope.selectedItems.length = 0;
   				$scope.decoratedResults = results;
   				$scope.loading = false;
+          console.dir($scope.decoratedResults);
   			}, function(error) {
   				throw new Error(error);
   				$scope.loading = false;
@@ -85,6 +131,12 @@ angular.module('nzbUiApp')
 
     /** Applies the filtering function per row. */
   	$scope.myFilter = function(row) {
+
+      // First - check to see if it's added already:
+      if($scope.added[row.id]) {
+        return false;
+      }
+
   		
       // Check collection based filtering
       if($scope.showCollections && !row.collection) {
@@ -128,7 +180,7 @@ angular.module('nzbUiApp')
   		return true;
   	}
 
-    /** Handles a change in selection of a typeahead filter.  */
+    /** Handles a change in selection of a filter.  */
     $scope.handleSelectionChange = function() {
       if($scope.selectedGroups) {
         $scope.updateFilters();
@@ -169,7 +221,7 @@ angular.module('nzbUiApp')
 
     $scope.forceUpdate = function() {
       if(!$scope.$$phase && !$scope.$root.$$phase) {
-        $scope.$apply();
+        $scope.$root.$apply();
       }
     }
 

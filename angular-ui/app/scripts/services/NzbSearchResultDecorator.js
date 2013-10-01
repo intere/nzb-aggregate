@@ -80,6 +80,19 @@ angular.module('nzbUiApp')
         return false;
       }
 
+      /** Gets you all of the posts as a flat array.  */
+      this.getPosts = function() {
+        var posts = [];
+
+        for(var i in this.results) {
+          for(var j in this.results[i].posts) {
+            posts[posts.length] = this.results[i].posts[j];
+          }
+        }
+
+        return posts;
+      }
+
       /** Gets you the metadata associated with the index.  */
   		this.getMetadata = function(index) {
   			if(index===undefined || index < 0 || index >= this.getSize()) {

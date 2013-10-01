@@ -4,8 +4,7 @@ angular.module('nzbUiApp')
   .directive('dropdownButton', function () {
     return {
       template: '<div class="btn-group"><button class="btn dropdown-toggle" data-toggle="dropdown">{{label}} <span class="caret"></span></button>'
-      	+ '<ul class="dropdown-menu"><li ng-repeat="i in menu"><a ng-click="toggle(i)"><i class="icon-ok" ng-hide="!isSelected(i)"></i> {{i}}</a></li></ul>'
-      	// + '<div class="button-bar"><button ng-repeat="i in ngModel" ng-click="remove(i)" class="btn btn-inverse">{{i}}</button></div>'
+      	+ '<ul class="dropdown-menu"><li ng-repeat="i in menu"><a ng-click="toggle(i)"><i class="icon-ok" ng-hide="!isSelected(i)"></i> {{i}}</a></li></ul>'      	
       	+ '</div>',
       restrict: 'A',
       replace: true,
