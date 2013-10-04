@@ -32,19 +32,20 @@ angular.module('nzbUiApp', [ 'ngGrid' ])
       });
   })
 
-  .value( 'ServerBase', 'http://localhost:9090/rest' )
+  .value( 'ServerBase', 'http://intere.servebeer.com:9090/nzb' )
 
   .config(['$httpProvider', function($httpProvider) {
     delete $httpProvider.defaults.headers.common["X-Requested-With"];
     $httpProvider.defaults.headers.post['Accept'] = "application/json";
   }])
 
-  .controller('NavCtrl', function ($scope, $location) {
+  .controller('NavCtrl', ['$scope', '$location', function ($scope, $location) {
     $scope.isView = function(name) {
       return new RegExp('/'+name+'$').test($location.path());
     }
-  })  
-  .run(function($rootScope, $log, $location) {
+  }])  
+
+  .run(['$rootScope', '$log', '$location', function($rootScope, $log, $location) {
     $rootScope.applicationName = "Music Search Utility";
     $log.info('application run: (path="' + $location.path() + '")' );
 
@@ -57,4 +58,4 @@ angular.module('nzbUiApp', [ 'ngGrid' ])
       $rootScope.showHide = undefined;
     });
 
-  });
+  }]);
