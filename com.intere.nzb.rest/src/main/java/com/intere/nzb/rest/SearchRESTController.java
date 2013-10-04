@@ -24,9 +24,9 @@ import com.intere.spring.nzb.model.dto.json.NzbPost;
 
 
 @Controller
-public class RESTController {
+public class SearchRESTController extends BaseRestController {
 	
-	private static final Logger LOG = Logger.getLogger(RESTController.class);
+	private static final Logger LOG = Logger.getLogger(SearchRESTController.class);
 	
 	@Autowired
 	private BinsearchUtils utils;
@@ -41,8 +41,7 @@ public class RESTController {
 		LOG.info("Handling OPTIONS request");
 		System.out.println("Handling OPTIONS request");
 		addCORSHeaders(response);
-    }
-	
+    }	
 	
 	@RequestMapping(value="/search", method=RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -72,7 +71,7 @@ public class RESTController {
 			consumes="application/json",
 			produces="application/json")
 	@ResponseBody
-	public Object download(@RequestBody List<NzbPost> posts,
+	public List<String> download(@RequestBody List<NzbPost> posts,
 		HttpServletResponse resp) throws Exception {
 
 		addCORSHeaders(resp);
@@ -90,18 +89,6 @@ public class RESTController {
 			results.add(f);
 		}	
 
-		return results;
+		return fileListToFileNameList(results);
 	}
-
-	/**
-	 * Adds the CORS headers for you.
-	 * @param resp
-	 */
-	protected void addCORSHeaders(HttpServletResponse resp) {
-		resp.addHeader("Access-Control-Allow-Origin", "*");
-		resp.addHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-		resp.addHeader("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
-	}
-	
-
 }
