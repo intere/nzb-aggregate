@@ -41,16 +41,27 @@
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
               <li><a href="#/about">About</a></li>
-              <!-- <li><a href="#contact">Contact</a></li> -->
+
+              <!-- Search Menu -->
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Navigation <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Search <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <!-- <li class="nav-header">Navigation</li> -->
-                  <li ng-repeat="nav in navigation">
+                  <li ng-repeat="nav in search">
                       <a ng-href="{{nav.href}}">{{nav.display}}</a>
                   </li>
-                </ul>
+                </ul>                
               </li>
+
+              <!-- Nzb Menu -->
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Nzb <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li ng-repeat="nav in nzb">
+                      <a ng-href="{{nav.href}}">{{nav.display}}</a>
+                  </li>
+                </ul>                
+              </li>
+
               <li class="dropdown" ng-hide="!hasShowHide()">
                 <a class="dropdown-toggle" data-toggle="dropdown">Show/Hide <b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -126,6 +137,10 @@
         <script src="scripts/controllers/test.js"></script>
         <script src="scripts/directives/typeahead.js"></script>
         <script src="scripts/directives/dropdownButton.js"></script>
+        <script src="scripts/controllers/log.js"></script>
+        <script src="scripts/services/LogService.js"></script>
+        <script src="scripts/controllers/queue.js"></script>
+        <script src="scripts/services/QueueService.js"></script>
         <!-- endbuild -->
 </body>
 </html>

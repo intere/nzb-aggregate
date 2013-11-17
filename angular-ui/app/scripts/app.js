@@ -27,6 +27,14 @@ angular.module('nzbUiApp', [ 'ngGrid' ])
         templateUrl: 'views/test.html',
         controller: 'TestCtrl'
       })
+      .when('/log', {
+        templateUrl: 'views/log.html',
+        controller: 'LogCtrl'
+      })
+      .when('/queue', {
+        templateUrl: 'views/queue.html',
+        controller: 'QueueCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
