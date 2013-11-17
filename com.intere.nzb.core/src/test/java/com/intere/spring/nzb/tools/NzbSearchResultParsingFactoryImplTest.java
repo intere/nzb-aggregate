@@ -29,6 +29,8 @@ import com.intere.spring.nzb.model.NzbSearchFormModel;
  * @author Eric Internicola (intere@gmail.com)
  * 
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations="classpath:/spring/test-config.xml")
 public class NzbSearchResultParsingFactoryImplTest extends AbstractNzbSpringTest {
 	
 	private static final Logger LOG = Logger.getLogger(NzbSearchResultParsingFactoryImplTest.class);

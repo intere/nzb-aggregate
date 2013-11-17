@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('nzbUiApp', [ 'ngGrid' ])
-  .config(function ($routeProvider) {
+  .config([ '$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -27,10 +27,18 @@ angular.module('nzbUiApp', [ 'ngGrid' ])
         templateUrl: 'views/test.html',
         controller: 'TestCtrl'
       })
+      .when('/log', {
+        templateUrl: 'views/log.html',
+        controller: 'LogCtrl'
+      })
+      .when('/queue', {
+        templateUrl: 'views/queue.html',
+        controller: 'QueueCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
-  })
+  }])
 
   .value( 'ServerBase', 'http://intere.servebeer.com:9090/nzb' )
 
@@ -39,13 +47,13 @@ angular.module('nzbUiApp', [ 'ngGrid' ])
     $httpProvider.defaults.headers.post['Accept'] = "application/json";
   }])
 
-  .controller('NavCtrl', ['$scope', '$location', function ($scope, $location) {
+  .controller('NavCtrl', [ '$scope', '$location', function ($scope, $location) {
     $scope.isView = function(name) {
       return new RegExp('/'+name+'$').test($location.path());
     }
   }])  
-
-  .run(['$rootScope', '$log', '$location', function($rootScope, $log, $location) {
+ 
+  .run([ '$rootScope', '$log', '$location', function($rootScope, $log, $location) {
     $rootScope.applicationName = "Music Search Utility";
     $log.info('application run: (path="' + $location.path() + '")' );
 

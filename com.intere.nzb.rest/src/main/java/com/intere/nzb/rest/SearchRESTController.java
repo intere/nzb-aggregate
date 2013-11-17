@@ -21,19 +21,19 @@ import com.intere.spring.nzb.builder.BinsearchUtils;
 import com.intere.spring.nzb.model.NzbExhaustiveSearch;
 import com.intere.spring.nzb.model.NzbSearchFormModel;
 import com.intere.spring.nzb.model.dto.json.NzbPost;
+import com.intere.spring.nzb.queue.QueueMonitor;
 
 
 @Controller
-public class RESTController {
+public class SearchRESTController extends BaseRestController {
 	
-	private static final Logger LOG = Logger.getLogger(RESTController.class);
+	private static final Logger LOG = Logger.getLogger(SearchRESTController.class);
 	
 	@Autowired
 	private BinsearchUtils utils;
 	
 	@Autowired
-	@Qualifier(value="QueueDirectory")
-	private String queueDir;
+	private QueueMonitor monitor;
 	
 	@RequestMapping(method = RequestMethod.OPTIONS, value="/search")
     public void manageSearchOptions(HttpServletResponse response)
@@ -41,8 +41,7 @@ public class RESTController {
 		LOG.info("Handling OPTIONS request");
 		System.out.println("Handling OPTIONS request");
 		addCORSHeaders(response);
-    }
-	
+    }	
 	
 	@RequestMapping(value="/search", method=RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -72,7 +71,7 @@ public class RESTController {
 			consumes="application/json",
 			produces="application/json")
 	@ResponseBody
-	public Object download(@RequestBody List<NzbPost> posts,
+	public List<String> download(@RequestBody List<NzbPost> posts,
 		HttpServletResponse resp) throws Exception {
 
 		addCORSHeaders(resp);
@@ -81,7 +80,7 @@ public class RESTController {
 		
 		for(NzbPost post : posts) {
 			File f = BinsearchUtils.createNzb(new NzbSearchFormModel(post));
-			File renamed = new File(queueDir, f.getName());		
+			File renamed = new File(monitor.getQueueDir(), f.getName());		
 			
 			
 			LOG.info("Moving file: " + f.getAbsolutePath() + " to " + renamed.getAbsolutePath());			
@@ -90,18 +89,6 @@ public class RESTController {
 			results.add(f);
 		}	
 
-		return results;
+		return fileListToFileNameList(results);
 	}
-
-	/**
-	 * Adds the CORS headers for you.
-	 * @param resp
-	 */
-	protected void addCORSHeaders(HttpServletResponse resp) {
-		resp.addHeader("Access-Control-Allow-Origin", "*");
-		resp.addHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-		resp.addHeader("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
-	}
-	
-
 }
