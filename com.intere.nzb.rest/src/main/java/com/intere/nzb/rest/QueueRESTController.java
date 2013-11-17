@@ -36,8 +36,7 @@ public class QueueRESTController extends BaseRestController {
 	@RequestMapping(method = RequestMethod.OPTIONS, value=ENDPOINT)
     public void manageSearchOptions(HttpServletResponse response)
     {
-		LOG.info("Handling OPTIONS request");
-		System.out.println("Handling OPTIONS request");
+		LOG.info("Handling OPTIONS request");		
 		addCORSHeaders(response);
     }
 

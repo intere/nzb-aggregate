@@ -14,5 +14,10 @@
 	<bean id="QueueDirectory" class="java.lang.String">
 		<constructor-arg value="/download/nzbperl/queue"></constructor-arg>
 	</bean>
+	
+	<!--  The NZB Log File. -->
+	<bean id="LogFile" class="java.lang.String">
+		<constructor-arg value="/download/nzbperl/nzb.log"></constructor-arg>
+	</bean>
 
 </beans>
