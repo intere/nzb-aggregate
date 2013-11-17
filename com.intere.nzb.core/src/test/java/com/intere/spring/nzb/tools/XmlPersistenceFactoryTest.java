@@ -6,7 +6,10 @@ import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.w3c.dom.Document;
 
 import com.intere.spring.nzb.AbstractNzbSpringTest;
@@ -22,6 +25,8 @@ import static org.junit.Assert.*;
  * @author einternicola
  * 
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations="classpath:/spring/test-config.xml")
 public class XmlPersistenceFactoryTest extends AbstractNzbSpringTest {
 
 	private static final String TEST_CONTENT = "Discography.html";

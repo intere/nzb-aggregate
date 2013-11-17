@@ -16,7 +16,10 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.w3c.dom.Document;
 
 import com.intere.spring.nzb.AbstractNzbSpringTest;
@@ -35,6 +38,8 @@ import com.intere.spring.nzb.tools.NzbSearchResultParsingFactoryImpl;
  * 
  * @author Eric Internicola (intere@gmail.com)
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations="classpath:/spring/test-config.xml")
 public class NzbPostTest extends AbstractNzbSpringTest {
 	
 	

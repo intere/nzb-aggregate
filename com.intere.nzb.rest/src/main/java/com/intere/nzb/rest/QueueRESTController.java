@@ -1,30 +1,27 @@
 package com.intere.nzb.rest;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.XML;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import com.intere.spring.nzb.queue.QueueMonitor;
 
 @Controller
 public class QueueRESTController extends BaseRestController {
@@ -34,8 +31,7 @@ public class QueueRESTController extends BaseRestController {
 	public static final String ENDPOINT = "/queue";
 	
 	@Autowired
-	@Qualifier(value="QueueDirectory")
-	private String queueDir;
+	private QueueMonitor monitor;
 	
 	@RequestMapping(method = RequestMethod.OPTIONS, value=ENDPOINT)
     public void manageSearchOptions(HttpServletResponse response)
@@ -50,19 +46,11 @@ public class QueueRESTController extends BaseRestController {
 	@ResponseBody
 	public List<String> getQueueList(HttpServletResponse resp) {
 		
-		LOG.debug("Checking file list for queue dir: " + queueDir);
-		
-		File f = new File(queueDir);
-		
-		File[] nzbFiles = f.listFiles(new FileFilter() {			
-			public boolean accept(File file) {
-				return file.getName().toLowerCase().endsWith(".nzb");
-			}
-		});
+		String[] nzbFiles = monitor.getFileList();
 		
 		addCORSHeaders(resp);
 		
-		return fileListToFileNameList(Arrays.asList(nzbFiles));
+		return Arrays.asList(nzbFiles);
 	}
 	
 	@RequestMapping(
@@ -82,7 +70,7 @@ public class QueueRESTController extends BaseRestController {
 				file = nzbfile + ".nzb";
 			}
 			
-			File nzbPath = new File(queueDir, file);
+			File nzbPath = new File(monitor.getQueueDir(), file);
 			FileInputStream in = new FileInputStream(nzbPath);
 			String xmlString = IOUtils.toString(in);
 			in.close();

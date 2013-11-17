@@ -21,6 +21,7 @@ import com.intere.spring.nzb.builder.BinsearchUtils;
 import com.intere.spring.nzb.model.NzbExhaustiveSearch;
 import com.intere.spring.nzb.model.NzbSearchFormModel;
 import com.intere.spring.nzb.model.dto.json.NzbPost;
+import com.intere.spring.nzb.queue.QueueMonitor;
 
 
 @Controller
@@ -32,8 +33,7 @@ public class SearchRESTController extends BaseRestController {
 	private BinsearchUtils utils;
 	
 	@Autowired
-	@Qualifier(value="QueueDirectory")
-	private String queueDir;
+	private QueueMonitor monitor;
 	
 	@RequestMapping(method = RequestMethod.OPTIONS, value="/search")
     public void manageSearchOptions(HttpServletResponse response)
@@ -80,7 +80,7 @@ public class SearchRESTController extends BaseRestController {
 		
 		for(NzbPost post : posts) {
 			File f = BinsearchUtils.createNzb(new NzbSearchFormModel(post));
-			File renamed = new File(queueDir, f.getName());		
+			File renamed = new File(monitor.getQueueDir(), f.getName());		
 			
 			
 			LOG.info("Moving file: " + f.getAbsolutePath() + " to " + renamed.getAbsolutePath());			
