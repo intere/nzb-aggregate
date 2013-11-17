@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('nzbUiApp', [ 'ngGrid' ])
-  .config(function ($routeProvider) {
+  .config([ '$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -38,7 +38,7 @@ angular.module('nzbUiApp', [ 'ngGrid' ])
       .otherwise({
         redirectTo: '/'
       });
-  })
+  }])
 
   .value( 'ServerBase', 'http://localhost:9090/rest' )
 
@@ -47,12 +47,13 @@ angular.module('nzbUiApp', [ 'ngGrid' ])
     $httpProvider.defaults.headers.post['Accept'] = "application/json";
   }])
 
-  .controller('NavCtrl', function ($scope, $location) {
+  .controller('NavCtrl', [ '$scope', '$location', function ($scope, $location) {
     $scope.isView = function(name) {
       return new RegExp('/'+name+'$').test($location.path());
     }
-  })  
-  .run(function($rootScope, $log, $location) {
+  }])  
+  
+  .run([ '$rootScope', '$log', '$location', function($rootScope, $log, $location) {
     $rootScope.applicationName = "Music Search Utility";
     $log.info('application run: (path="' + $location.path() + '")' );
 
@@ -65,4 +66,4 @@ angular.module('nzbUiApp', [ 'ngGrid' ])
       $rootScope.showHide = undefined;
     });
 
-  });
+  }]);
